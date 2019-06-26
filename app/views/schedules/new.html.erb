@@ -4,8 +4,8 @@
 <p>During the test you count only these pullups during which you managed to raise your chin above the pullup bar.</p>
 <p>You also don't count the last pullup which you didn't do completely.</p>
 
-<%= form_tag("/schedules", method: "post") do %>
-  <%= label_tag(:reult, "Enter number of pullups completed:") %>
-  <%= number_field(:result, :pullups, in: 1..50, step: 1) %>
-  <%= submit_tag("Sumbit Result") %>
+<%= form_tag "/schedules", method: "post" do %>
+  <%= label_tag :result, "Enter number of pullups completed:" %>
+  <%= number_field_tag :result, nil, in: 1..50 %>
+  <%= submit_tag "Sumbit Result" %>
 <% end %>
