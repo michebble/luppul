@@ -15,6 +15,6 @@ class SchedulesController < ApplicationController
   private
 
   def level_map(pullups)
-    Schedule::LEVEL_MAP.find { |range, _| range.cover?(pullups.to_i) }.last
+    Schedule::LEVEL_MAP.find { |range, _| range.cover?(pullups.to_i) }.last[:level]
   end
 end
