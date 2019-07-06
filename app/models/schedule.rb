@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Schedule determines the amount of sessions and amount of pullups in sets
+# Schedule model
 class Schedule < ApplicationRecord
   validates :level, presence: true, numericality: {
     only_integer: true,
@@ -9,6 +9,7 @@ class Schedule < ApplicationRecord
   }
 
   belongs_to :user, inverse_of: :schedules
+  has_many :sessions, inverse_of: :schedule
 
   LEVEL_MAP = {
     (0..3) => {

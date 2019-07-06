@@ -3,6 +3,7 @@ class CreateSchedules < ActiveRecord::Migration[5.2]
     create_table :schedules do |t|
       t.belongs_to :user, index: true
       t.integer :level, null: false
+
       t.timestamps
     end
   end
