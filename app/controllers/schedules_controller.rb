@@ -2,19 +2,31 @@
 
 # Actions for Schedules
 class SchedulesController < ApplicationController
-  def show
-    user = User.find(1)
-    redirect_to new_schedule_path if user.schedules.empty?
-    @schedule = user.schedules.first
+  def index
+    schedule = Schedule.where(user_id: 1).order(created_at: :desc).first
+
+    redirect_to schedule.nil? ? new_schedule_path : schedule_path(schedule)
   end
 
   def create
-    @schedule = Schedule.create(user_id: 1, level: level_map(params[:result]))
+    settings = level_map(params[:result])
+    schedule = Schedule.create(user_id: 1, level: settings[:level])
+    Session.create(
+      schedule_id: schedule.id,
+      start_date: 2.days.since(Time.current)
+    )
+    redirect_to schedule_path(schedule)
+  end
+
+  def show
+    @schedule = Schedule.find(params[:id])
   end
 
   private
 
   def level_map(pullups)
-    Schedule::LEVEL_MAP.find { |range, _| range.cover?(pullups.to_i) }.last
+    Schedule::LEVEL_MAP
+      .find { |range, _| range.cover?(pullups.to_i) }
+      .last
   end
 end
