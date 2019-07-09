@@ -9,8 +9,12 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    schedule = Schedule.create(user_id: 1, level: level_map(params[:result]))
-
+    settings = level_map(params[:result])
+    schedule = Schedule.create(user_id: 1, level: settings[:level])
+    Session.create(
+      schedule_id: schedule.id,
+      start_date: 2.days.since(Time.current)
+    )
     redirect_to schedule_path(schedule)
   end
 
@@ -23,6 +27,6 @@ class SchedulesController < ApplicationController
   def level_map(pullups)
     Schedule::LEVEL_MAP
       .find { |range, _| range.cover?(pullups.to_i) }
-      .last[:level]
+      .last
   end
 end

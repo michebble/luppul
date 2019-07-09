@@ -22,4 +22,20 @@ RSpec.describe Schedule, type: :model do
       expect(schedule).to be_valid
     end
   end
+
+  describe '#next_session_date' do
+    let(:schedule)   { create(:schedule) }
+    let(:start_date) { '2019-07-11' }
+    let!(:session)   do
+      create(
+        :session,
+        schedule_id: schedule.id,
+        start_date: start_date
+      )
+    end
+
+    it 'returns the start date of the session' do
+      expect(schedule.next_session_date).to eq '11th of July'
+    end
+  end
 end

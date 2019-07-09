@@ -14,7 +14,7 @@ class Schedule < ApplicationRecord
   LEVEL_MAP = {
     (0..3) => {
       level: 1,
-      days: [
+      sessions: [
         [
           sets: [2, 7, 5, 5, 7],
           break_days: 1
@@ -43,7 +43,7 @@ class Schedule < ApplicationRecord
     },
     (4..5) => {
       level: 2,
-      days: [
+      sessions: [
         [
           sets: [4, 9, 6, 6, 9],
           break_days: 1
@@ -72,7 +72,7 @@ class Schedule < ApplicationRecord
     },
     (6..8) => {
       level: 3,
-      days: [
+      sessions: [
         [
           sets: [2, 3, 2, 2, 3],
           break_days: 1
@@ -101,7 +101,7 @@ class Schedule < ApplicationRecord
     },
     (9..11) => {
       level: 4,
-      days: [
+      sessions: [
         [
           sets: [3, 5, 3, 3, 5],
           break_days: 1
@@ -130,7 +130,7 @@ class Schedule < ApplicationRecord
     },
     (12..15) => {
       level: 5,
-      days: [
+      sessions: [
         [
           sets: [6, 8, 6, 6, 8],
           break_days: 1
@@ -159,7 +159,7 @@ class Schedule < ApplicationRecord
     },
     (16..20) => {
       level: 6,
-      days: [
+      sessions: [
         [
           sets: [8, 11, 8, 8, 10],
           break_days: 1
@@ -200,7 +200,7 @@ class Schedule < ApplicationRecord
     },
     (21..25) => {
       level: 7,
-      days: [
+      sessions: [
         [
           sets: [12, 16, 12, 12, 15],
           break_days: 1
@@ -241,7 +241,7 @@ class Schedule < ApplicationRecord
     },
     (26..30) => {
       level: 8,
-      days: [
+      sessions: [
         [
           sets: [16, 18, 15, 15, 17],
           break_days: 1
@@ -282,7 +282,7 @@ class Schedule < ApplicationRecord
     },
     (31..35) => {
       level: 9,
-      days: [
+      sessions: [
         [
           sets: [20, 25, 19, 19, 23],
           break_days: 1
@@ -323,7 +323,7 @@ class Schedule < ApplicationRecord
     },
     (36..40) => {
       level: 10,
-      days: [
+      sessions: [
         [
           sets: [23, 27, 22, 22, 26],
           break_days: 1
@@ -364,7 +364,7 @@ class Schedule < ApplicationRecord
     },
     (41..50) => {
       level: 11,
-      days: [
+      sessions: [
         [
           sets: [25, 28, 24, 24, 27],
           break_days: 1
@@ -404,4 +404,8 @@ class Schedule < ApplicationRecord
       ]
     }
   }.freeze
+
+  def next_session_date
+    sessions.first.start_date.strftime("#{sessions.first.start_date.day.ordinalize} of %B")
+  end
 end
