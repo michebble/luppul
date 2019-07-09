@@ -1,24 +1,32 @@
-# README
+# Luppul
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Pull up -> pullup -> luppul
 
-Things you may want to cover:
+I found a site that states if I follow their plan I will be able to do 50 pull ups in a row. They offer an app to help track your progress towards that goal, but I thought it might be a good learning exercise to try and implement my own version.
 
-* Ruby version
+This purely for learning purposes and should not be taken seriously. 50 pull ups is a lot, I hold no responsibility if you injure yourself trying complete the challenge.
 
-* System dependencies
+# Getting started
 
-* Configuration
+First install the required gems
+```
+bundle install
+```
 
-* Database creation
+Create and setup the database
+```
+bundle exec rails db:create
+bundle exec rails db:setup
+```
 
-* Database initialization
+Run the tests
+```
+bundle exec rspec spec
+```
 
-* How to run the test suite
+Start the server
+```
+bundle exec rails s
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The page will be accessible at http://localhost:3000, be ready to (not) do some pull ups.
