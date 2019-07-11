@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   get '/', to: 'schedules#index'
 
   resources :schedules
+  resources :sessions
 end
