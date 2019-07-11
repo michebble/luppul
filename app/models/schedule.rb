@@ -11,6 +11,10 @@ class Schedule < ApplicationRecord
   belongs_to :user, inverse_of: :schedules
   has_many :sessions, inverse_of: :schedule
 
+  def current_session
+    sessions.first
+  end
+
   LEVEL_MAP = {
     (0..3) => {
       level: 1,
@@ -404,8 +408,4 @@ class Schedule < ApplicationRecord
       ]
     }
   }.freeze
-
-  def next_session_date
-    sessions.first.start_date.strftime("#{sessions.first.start_date.day.ordinalize} of %B")
-  end
 end

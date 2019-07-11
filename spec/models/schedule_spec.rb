@@ -23,19 +23,18 @@ RSpec.describe Schedule, type: :model do
     end
   end
 
-  describe '#next_session_date' do
+  describe '#current_session' do
     let(:schedule)   { create(:schedule) }
-    let(:start_date) { '2019-07-11' }
     let!(:session)   do
       create(
         :session,
         schedule_id: schedule.id,
-        start_date: start_date
+        start_date: DateTime.current
       )
     end
 
-    it 'returns the start date of the session' do
-      expect(schedule.next_session_date).to eq '11th of July'
+    it 'returns the current session' do
+      expect(schedule.current_session).to eq session
     end
   end
 end
