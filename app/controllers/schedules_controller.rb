@@ -13,6 +13,8 @@ class SchedulesController < ApplicationController
     schedule = Schedule.create(user_id: 1, level: settings[:level])
     Session.create(
       schedule_id: schedule.id,
+      exercise: settings[:exercise],
+      sets: settings[:sessions].first[:sets],
       start_date: 2.days.since(Time.current)
     )
     redirect_to schedule_path(schedule)

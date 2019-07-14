@@ -8,6 +8,10 @@ RSpec.describe Session, type: :model do
   end
 
   describe 'Validations' do
+    it { should validate_presence_of :exercise }
+    it { should validate_presence_of :sets }
+    it { should validate_presence_of :start_date }
+
     it 'has a valid factory' do
       session = create(:session)
       expect(session).to be_valid
@@ -15,7 +19,7 @@ RSpec.describe Session, type: :model do
   end
 
   describe '#human_start_date' do
-    let(:session)   do
+    let(:session) do
       create(
         :session,
         start_date: '2019-07-11'
