@@ -1,6 +1,10 @@
 
 <p>Your current level is <%=@schedule.level%></p>
 
-<p>Session <%=@schedule.sessions.count%> starts on <%=@schedule.next_session_date%></p>
+<% if @schedule.current_session.start_date > DateTime.current%>
+  <p>Session <%=@schedule.sessions.count%> starts on <%=@schedule.current_session.start_date.strftime("#{@schedule.current_session.start_date.day.ordinalize} of %B")%></p>
 
-<p>See you then</p>
+  <p>See you then</p>
+<% else %>
+  <%= link_to "Sart Session", session_path(@schedule.current_session) %>
+<% end %>

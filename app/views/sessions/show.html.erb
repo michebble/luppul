@@ -1,0 +1,10 @@
+<p> Today's exercise is <%= @session.exercise.humanize(capitalize: false) %></p>
+<table>
+  <tbody>
+    <% @session.sets.each do |set| %>
+      <tr>
+        <td><%= set %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
