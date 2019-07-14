@@ -6,7 +6,7 @@ class Session < ApplicationRecord
 
   belongs_to :schedule, inverse_of: :sessions
 
-  enum exercise: { pull_up: 0, negative_pull_up: 1 }
+  enum exercise: { pull_ups: 0, negative_pull_ups: 1 }
 
   def human_start_date
     start_date.strftime("#{start_date.day.ordinalize} of %B")
