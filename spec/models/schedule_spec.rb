@@ -13,8 +13,8 @@ RSpec.describe Schedule, type: :model do
     it do
       should validate_numericality_of(:level)
         .only_integer
-        .is_greater_than_or_equal_to(1)
-        .is_less_than_or_equal_to(11)
+        .is_greater_than_or_equal_to(0)
+        .is_less_than_or_equal_to(10)
     end
 
     it 'has a valid factory' do
