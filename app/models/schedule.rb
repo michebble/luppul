@@ -4,8 +4,8 @@
 class Schedule < ApplicationRecord
   validates :level, presence: true, numericality: {
     only_integer: true,
-    greater_than_or_equal_to: 1,
-    less_than_or_equal_to: 11
+    greater_than_or_equal_to: 0,
+    less_than_or_equal_to: 10
   }
 
   belongs_to :user, inverse_of: :schedules
@@ -15,10 +15,22 @@ class Schedule < ApplicationRecord
     sessions.first
   end
 
-  LEVEL_MAP = {
-    (0..3) => {
-      level: 1,
-      exercise: :negative_pull_up,
+  LEVELS = [
+    (0..3),
+    (4..5),
+    (6..8),
+    (9..11),
+    (16..20),
+    (21..25),
+    (26..30),
+    (31..35),
+    (36..40),
+    (41..50)
+  ].freeze
+
+  PLANS = [
+    {
+      exercise: :negative_pull_ups,
       sessions: [
         {
           sets: [2, 7, 5, 5, 7],
@@ -46,9 +58,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (4..5) => {
-      level: 2,
-      exercise: :negative_pull_up,
+    {
+      exercise: :negative_pull_ups,
       sessions: [
         {
           sets: [4, 9, 6, 6, 9],
@@ -76,9 +87,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (6..8) => {
-      level: 3,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [2, 3, 2, 2, 3],
@@ -106,9 +116,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (9..11) => {
-      level: 4,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [3, 5, 3, 3, 5],
@@ -136,9 +145,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (12..15) => {
-      level: 5,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [6, 8, 6, 6, 8],
@@ -166,9 +174,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (16..20) => {
-      level: 6,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [8, 11, 8, 8, 10],
@@ -208,9 +215,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (21..25) => {
-      level: 7,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [12, 16, 12, 12, 15],
@@ -250,9 +256,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (26..30) => {
-      level: 8,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [16, 18, 15, 15, 17],
@@ -292,9 +297,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (31..35) => {
-      level: 9,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [20, 25, 19, 19, 23],
@@ -334,9 +338,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (36..40) => {
-      level: 10,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [23, 27, 22, 22, 26],
@@ -376,9 +379,8 @@ class Schedule < ApplicationRecord
         }
       ]
     },
-    (41..50) => {
-      level: 11,
-      exercise: :pull_up,
+    {
+      exercise: :pull_ups,
       sessions: [
         {
           sets: [25, 28, 24, 24, 27],
@@ -418,5 +420,5 @@ class Schedule < ApplicationRecord
         }
       ]
     }
-  }.freeze
+  ].freeze
 end

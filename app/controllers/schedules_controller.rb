@@ -2,6 +2,7 @@
 
 # Actions for Schedules
 class SchedulesController < ApplicationController
+  START_DATE = DateTime.current
   def index
     schedule = Schedule.where(user_id: 1).order(created_at: :desc).first
 
@@ -9,13 +10,17 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    settings = level_map(params[:result])
-    schedule = Schedule.create(user_id: 1, level: settings[:level])
+    # extract into create schedule usecase
+    schedule = Schedule.create(user_id: 1, level: find_level(params[:result]))
+    # extract into create session usecase
+    # add logic to limit not create if
+    # schedule_plan[:sessions].count is equal to schedule.sessions.count
+    schedule_plan = Schedule::PLANS[schedule.level]
     Session.create(
       schedule_id: schedule.id,
-      exercise: settings[:exercise],
-      sets: settings[:sessions].first[:sets],
-      start_date: 2.days.since(Time.current)
+      exercise: schedule_plan[:exercise],
+      sets: schedule_plan[:sessions][schedule.sessions.count][:sets],
+      start_date: START_DATE
     )
     redirect_to schedule_path(schedule)
   end
@@ -26,9 +31,7 @@ class SchedulesController < ApplicationController
 
   private
 
-  def level_map(pullups)
-    Schedule::LEVEL_MAP
-      .find { |range, _| range.cover?(pullups.to_i) }
-      .last
+  def find_level(pullups)
+    Schedule::LEVELS.find_index { |range| range.cover?(pullups.to_i) }
   end
 end
