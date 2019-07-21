@@ -11,16 +11,11 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    schedule = Schedule.create(user_id: 1, level: find_level(params[:result]))
+    result = CreateSchedule.call(user_id: 1, level: find_level(params[:result]))
 
-    schedule_plan = Schedule::PLANS[schedule.level]
-    Session.create(
-      schedule_id: schedule.id,
-      exercise: schedule_plan[:exercise],
-      sets: schedule_plan[:sessions][schedule.sessions.count][:sets],
-      start_date: START_DATE
-    )
-    redirect_to schedule_path(schedule)
+    CreateSession.call(schedule: result.schedule)
+
+    redirect_to schedule_path(result.schedule)
   end
 
   def show
