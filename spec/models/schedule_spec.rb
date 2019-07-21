@@ -24,8 +24,16 @@ RSpec.describe Schedule, type: :model do
   end
 
   describe '#current_session' do
-    let(:schedule)   { create(:schedule) }
-    let!(:session)   do
+    let(:schedule) { create(:schedule) }
+    let!(:completed_session) do
+      create(
+        :session,
+        schedule_id: schedule.id,
+        start_date: DateTime.current,
+        completed_at: DateTime.current
+      )
+    end
+    let!(:session) do
       create(
         :session,
         schedule_id: schedule.id,
@@ -33,7 +41,7 @@ RSpec.describe Schedule, type: :model do
       )
     end
 
-    it 'returns the current session' do
+    it 'returns the uncompleted session' do
       expect(schedule.current_session).to eq session
     end
   end

@@ -12,7 +12,7 @@ class Schedule < ApplicationRecord
   has_many :sessions, inverse_of: :schedule
 
   def current_session
-    sessions.first
+    sessions.find_by(completed_at: nil)
   end
 
   LEVELS = [
