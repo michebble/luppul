@@ -8,3 +8,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= button_to "Finished", sessions_path(id: @session, :method => :post)%>
