@@ -7,7 +7,8 @@ class CreateSchedule
   delegate :user_id, :level, to: :context
 
   def call
-    schedule = Schedule.new(user_id: user_id, level: level)
+    exercise = SelectExerciseService.call(level)
+    schedule = Schedule.new(user_id: user_id, level: level, exercise: exercise)
     if schedule.save
       context.schedule = schedule
     else

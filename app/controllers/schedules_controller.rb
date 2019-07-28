@@ -5,7 +5,8 @@ class SchedulesController < ApplicationController
   START_DATE = DateTime.current
 
   def index
-    schedule = Schedule.where(user_id: 1, completed_at: nil).order(created_at: :desc).first
+    schedule = Schedule.where(user_id: 1, completed_at: nil)
+                       .order(created_at: :desc).first
 
     redirect_to schedule.nil? ? new_schedule_path : schedule_path(schedule)
   end

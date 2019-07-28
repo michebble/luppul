@@ -7,9 +7,12 @@ class Schedule < ApplicationRecord
     greater_than_or_equal_to: 0,
     less_than_or_equal_to: 10
   }
+  validates :exercise, presence: true
 
   belongs_to :user, inverse_of: :schedules
   has_many :sessions, inverse_of: :schedule
+
+  enum exercise: { negative_pull_ups: 0, pull_ups: 1 }
 
   def current_session
     sessions.find_by(completed_at: nil)
@@ -30,7 +33,6 @@ class Schedule < ApplicationRecord
 
   PLANS = [
     {
-      exercise: :negative_pull_ups,
       sessions: [
         {
           sets: [2, 7, 5, 5, 7],
@@ -59,7 +61,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :negative_pull_ups,
       sessions: [
         {
           sets: [4, 9, 6, 6, 9],
@@ -88,7 +89,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [2, 3, 2, 2, 3],
@@ -117,7 +117,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [3, 5, 3, 3, 5],
@@ -146,7 +145,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [6, 8, 6, 6, 8],
@@ -175,7 +173,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [8, 11, 8, 8, 10],
@@ -216,7 +213,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [12, 16, 12, 12, 15],
@@ -257,7 +253,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [16, 18, 15, 15, 17],
@@ -298,7 +293,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [20, 25, 19, 19, 23],
@@ -339,7 +333,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [23, 27, 22, 22, 26],
@@ -380,7 +373,6 @@ class Schedule < ApplicationRecord
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [25, 28, 24, 24, 27],

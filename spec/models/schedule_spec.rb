@@ -9,6 +9,7 @@ RSpec.describe Schedule, type: :model do
   end
 
   describe 'Validations' do
+    it { should validate_presence_of :exercise }
     it { should validate_presence_of :level }
     it do
       should validate_numericality_of(:level)

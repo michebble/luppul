@@ -6,7 +6,6 @@ class CreateSession
   START_DATE = DateTime.current
   PLANS = [
     {
-      exercise: :negative_pull_ups,
       sessions: [
         {
           sets: [2, 7, 5, 5, 7],
@@ -35,7 +34,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :negative_pull_ups,
       sessions: [
         {
           sets: [4, 9, 6, 6, 9],
@@ -64,7 +62,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [2, 3, 2, 2, 3],
@@ -93,7 +90,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [3, 5, 3, 3, 5],
@@ -122,7 +118,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [6, 8, 6, 6, 8],
@@ -151,7 +146,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [8, 11, 8, 8, 10],
@@ -192,7 +186,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [12, 16, 12, 12, 15],
@@ -233,7 +226,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [16, 18, 15, 15, 17],
@@ -274,7 +266,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [20, 25, 19, 19, 23],
@@ -315,7 +306,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [23, 27, 22, 22, 26],
@@ -356,7 +346,6 @@ class CreateSession
       ]
     },
     {
-      exercise: :pull_ups,
       sessions: [
         {
           sets: [25, 28, 24, 24, 27],
@@ -407,7 +396,6 @@ class CreateSession
 
     session = Session.new(
       schedule_id: schedule.id,
-      exercise: schedule_plan.fetch(:exercise),
       sets: schedule_plan[:sessions][schedule.sessions.count][:sets],
       start_date: START_DATE
     )
