@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CreateSchedule, type: :interactor do
-  subject(:context) { CreateSchedule.call(user_id: user_id, level: 0) }
+  subject(:context) { CreateSchedule.call(user_id: user_id, pull_ups: 1) }
   let(:user)    { create(:user) }
   let(:user_id) { user.id }
 

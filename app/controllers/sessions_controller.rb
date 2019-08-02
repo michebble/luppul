@@ -13,9 +13,9 @@ class SessionsController < ApplicationController
     session.update(completed_at: DateTime.current)
 
     schedule = session.schedule
-    schedule_plan = Schedule::PLANS[schedule.level]
+    sets = Session::SETS[schedule.level]
 
-    if schedule.sessions.count == schedule_plan[:sessions].count
+    if schedule.sessions.count == sets.count
       schedule.update(completed_at: DateTime.current)
       redirect_to new_schedule_path
     else
