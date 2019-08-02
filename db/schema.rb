@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_20_061701) do
+ActiveRecord::Schema.define(version: 2019_07_24_122003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2019_07_20_061701) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "completed_at"
+    t.integer "exercise", null: false
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
@@ -29,7 +30,6 @@ ActiveRecord::Schema.define(version: 2019_07_20_061701) do
     t.bigint "schedule_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "exercise", null: false
     t.integer "sets", default: [], null: false, array: true
     t.datetime "completed_at"
     t.index ["schedule_id"], name: "index_sessions_on_schedule_id"

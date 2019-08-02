@@ -13,18 +13,13 @@ class SessionsController < ApplicationController
     session.update(completed_at: DateTime.current)
 
     schedule = session.schedule
-    schedule_plan = Schedule::PLANS[schedule.level]
+    sets = Session::SETS[schedule.level]
 
-    if schedule.sessions.count == schedule_plan[:sessions].count
+    if schedule.sessions.count == sets.count
       schedule.update(completed_at: DateTime.current)
       redirect_to new_schedule_path
     else
-      Session.create(
-        schedule_id: schedule.id,
-        exercise: schedule_plan[:exercise],
-        sets: schedule_plan[:sessions][schedule.sessions.count][:sets],
-        start_date: START_DATE
-      )
+      CreateSession.call(schedule: schedule)
 
       redirect_to schedule_path(schedule)
     end
