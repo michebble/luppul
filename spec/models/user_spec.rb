@@ -32,14 +32,14 @@ RSpec.describe User, type: :model do
       it { should validate_uniqueness_of(:email).case_insensitive }
 
       invalid_emails = %w[user@example,com user_at_foo.org user.name@example.
-                          foo@bar_baz.com foo@bar+baz.com].freeze
+                          foo@bar_baz.com foo@bar+baz.com user@nonwhitelisteddomain.com].freeze
       invalid_emails.each do |email|
         it { should_not allow_value(email).for(:email) }
       end
 
-      valid_emails = %w[user@example.com user.name@example.org].freeze
+      valid_emails = %w[user@ user.name@].freeze
       valid_emails.each do |email|
-        it { should allow_value(email).for(:email) }
+        it { should allow_value(email + ENV['WHITELISTED_EMAIL_DOMAIN']).for(:email) }
       end
     end
   end

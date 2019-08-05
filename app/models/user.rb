@@ -2,7 +2,7 @@
 
 # User tracks who is doing which work out
 class User < ApplicationRecord
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@#{ENV['WHITELISTED_EMAIL_DOMAIN']}/i.freeze
   VALID_PASSWORD_REGEX = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/.freeze
 
   private_constant :VALID_EMAIL_REGEX, :VALID_PASSWORD_REGEX
