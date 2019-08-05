@@ -13,7 +13,19 @@ RSpec.describe User, type: :model do
       expect(user).to be_valid
     end
 
-    it { should validate_length_of(:password).is_at_least(8) }
+    describe ':password' do
+      it { should validate_length_of(:password).is_at_least(8) }
+
+      invalid_passwords = %w[qwertyui 123456789 T56787989].freeze
+      invalid_passwords.each do |password|
+        it { should_not allow_value(password).for(:password) }
+      end
+
+      valid_passwords = %w[Password!2 hjsyu67T@./j].freeze
+      valid_passwords.each do |password|
+        it { should allow_value(password).for(:password) }
+      end
+    end
 
     describe ':email' do
       it { should validate_presence_of :email }
