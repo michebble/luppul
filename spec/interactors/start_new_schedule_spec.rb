@@ -13,11 +13,11 @@ RSpec.describe StartNewSchedule, type: :interactor do
         expect(context).to be_a_success
       end
 
-      it 'creates a schedule with a session for the user' do
+      it 'creates a schedule with a workout for the user' do
         aggregate_failures do
           expect { context }.to change { user.schedules.count }.from(0).to(1)
           expect(context.schedule).to eq(user.schedules.first)
-          expect(context.session).to eq(user.schedules.first.sessions.first)
+          expect(context.workout).to eq(user.schedules.first.workouts.first)
         end
       end
     end

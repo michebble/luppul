@@ -1,0 +1,12 @@
+<p> Today's exercise is <%= @workout.exercise.humanize(capitalize: false) %></p>
+<table>
+  <tbody>
+    <% @workout.sets.each do |set| %>
+      <tr>
+        <td><%= set %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= button_to "Finished", workouts_path(id: @workout, :method => :post)%>

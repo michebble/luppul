@@ -4,7 +4,7 @@
 class StartNewSchedule
   include Interactor::Organizer
 
-  organize CreateSchedule, CreateSession
+  organize CreateSchedule, CreateWorkout
 
   # around do |interactor|
   #   ActiveRecord::Base.transaction do
