@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Session model
-class Session < ApplicationRecord
+# Workout model
+class Workout < ApplicationRecord
   validates :sets, :start_date, presence: true
 
-  belongs_to :schedule, inverse_of: :sessions
+  belongs_to :schedule, inverse_of: :workouts
 
   delegate :exercise, to: :schedule
 

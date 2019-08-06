@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_04_055029) do
+ActiveRecord::Schema.define(version: 2019_08_06_113017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,16 +25,6 @@ ActiveRecord::Schema.define(version: 2019_08_04_055029) do
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.date "start_date", null: false
-    t.bigint "schedule_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "sets", default: [], null: false, array: true
-    t.datetime "completed_at"
-    t.index ["schedule_id"], name: "index_sessions_on_schedule_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,5 +33,15 @@ ActiveRecord::Schema.define(version: 2019_08_04_055029) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "sessions", "schedules"
+  create_table "workouts", force: :cascade do |t|
+    t.date "start_date", null: false
+    t.bigint "schedule_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "sets", default: [], null: false, array: true
+    t.datetime "completed_at"
+    t.index ["schedule_id"], name: "index_workouts_on_schedule_id"
+  end
+
+  add_foreign_key "workouts", "schedules"
 end

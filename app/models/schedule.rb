@@ -10,12 +10,12 @@ class Schedule < ApplicationRecord
   validates :exercise, presence: true
 
   belongs_to :user, inverse_of: :schedules
-  has_many :sessions, inverse_of: :schedule
+  has_many :workouts, inverse_of: :schedule
 
   enum exercise: { negative_pull_ups: 0, pull_ups: 1 }
 
-  def current_session
-    sessions.find_by(completed_at: nil)
+  def current_workout
+    workouts.find_by(completed_at: nil)
   end
 
   LEVELS = [

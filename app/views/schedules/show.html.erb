@@ -1,11 +1,11 @@
 
 <p>Your current level is <%=@schedule.level + 1%></p>
 
-<% if @schedule.current_session.start_date > DateTime.current%>
-  <p>Session <%=@schedule.sessions.count%> starts on <%=@schedule.current_session.start_date.strftime("#{@schedule.current_session.start_date.day.ordinalize} of %B")%></p>
+<% if @schedule.current_workout.start_date > DateTime.current%>
+  <p>Workout <%=@schedule.workout.count%> starts on <%=@schedule.current_workout.start_date.strftime("#{@schedule.current_workout.start_date.day.ordinalize} of %B")%></p>
 
   <p>See you then</p>
 <% else %>
-  <p>Session <%=@schedule.sessions.count%></p>
-  <%= link_to "Sart Session", session_path(@schedule.current_session) %>
+  <p>Workout <%=@schedule.workout.count%></p>
+  <%= link_to "Sart Workout", workout_path(@schedule.current_workout) %>
 <% end %>

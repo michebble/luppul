@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Schedule, type: :model do
   describe 'associations' do
     it { should belong_to(:user).class_name('User') }
-    it { should have_many(:sessions).class_name('Session') }
+    it { should have_many(:workouts).class_name('Workout') }
   end
 
   describe 'Validations' do
@@ -24,26 +24,26 @@ RSpec.describe Schedule, type: :model do
     end
   end
 
-  describe '#current_session' do
+  describe '#current_workout' do
     let(:schedule) { create(:schedule) }
-    let!(:completed_session) do
+    let!(:completed_workout) do
       create(
-        :session,
+        :workout,
         schedule_id: schedule.id,
         start_date: DateTime.current,
         completed_at: DateTime.current
       )
     end
-    let!(:session) do
+    let!(:workout) do
       create(
-        :session,
+        :workout,
         schedule_id: schedule.id,
         start_date: DateTime.current
       )
     end
 
-    it 'returns the uncompleted session' do
-      expect(schedule.current_session).to eq session
+    it 'returns the uncompleted workout' do
+      expect(schedule.current_workout).to eq workout
     end
   end
 end
