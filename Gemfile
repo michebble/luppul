@@ -33,6 +33,9 @@ gem 'bcrypt', '~> 3.1.12'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use TimeDifference for time comparisons
+gem 'time_difference', '0.7.0'
+
 # Use Interactor to contain business logic
 gem "interactor", "~> 3.0"
 

@@ -3,10 +3,14 @@
 # Actions for Schedules
 class SchedulesController < ApplicationController
   def index
-    schedule = Schedule.where(user_id: current_user.id, completed_at: nil)
-                       .order(created_at: :desc).first
+    schedule = Schedule.where(user_id: current_user.id).order(created_at: :desc).first
 
-    redirect_to schedule.nil? ? new_schedule_path : schedule_path(schedule)
+    if schedule.completed_at.nil?
+      redirect_to schedule_path(schedule) and return
+    elsif days_since_completed(schedule.completed_at) >= 2
+      redirect_to new_schedule_path and return
+    end
+    render 'please_wait'
   end
 
   def create
@@ -17,5 +21,11 @@ class SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find(params[:id])
+  end
+
+  private
+
+  def days_since_completed(completed_at)
+    TimeDifference.between(completed_at, Time.current).in_days
   end
 end
