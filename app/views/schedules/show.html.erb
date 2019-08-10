@@ -6,6 +6,6 @@
 
   <p>See you then</p>
 <% else %>
-  <p>Workout <%=@schedule.workout.count%></p>
+  <p>Workout <%=@schedule.workouts.count%></p>
   <%= link_to "Sart Workout", workout_path(@schedule.current_workout) %>
 <% end %>
