@@ -10,7 +10,7 @@ class SchedulesController < ApplicationController
   end
 
   def create
-    result = StartNewSchedule.call(user_id: 1, pull_ups: params[:result].to_i)
+    result = StartNewSchedule.call(user_id: current_user.id, pull_ups: params[:result].to_i)
 
     redirect_to schedule_path(result.schedule)
   end
