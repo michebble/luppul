@@ -3,7 +3,7 @@
 # Actions for Schedules
 class SchedulesController < ApplicationController
   def index
-    schedule = Schedule.where(user_id: 1, completed_at: nil)
+    schedule = Schedule.where(user_id: current_user.id, completed_at: nil)
                        .order(created_at: :desc).first
 
     redirect_to schedule.nil? ? new_schedule_path : schedule_path(schedule)

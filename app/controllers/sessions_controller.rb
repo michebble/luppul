@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
 
   def create
     result = CreateSession.call(session_params)
-    if result.user.present?
+    if result.success?
+      log_in result.user
       redirect_to schedules_path
     else
       flash.now[:danger] = result.errors.first

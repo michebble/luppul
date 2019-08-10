@@ -8,7 +8,7 @@ class CreateSession
 
   def call
     user = User.find_by(email: email.downcase)
-    if user && user.authenticate(password)
+    if user&.authenticate(password)
       context.user = user
     else
       context.fail!(errors: ['Email or password is incorrect'])
