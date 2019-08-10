@@ -8,7 +8,7 @@ class CreateUser
 
   def call
     user = User.new(
-      email: email,
+      email: email.downcase,
       password: password,
       password_confirmation: password_confirmation
     )
