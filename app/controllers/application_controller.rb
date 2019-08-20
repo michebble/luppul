@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :require_login
   protect_from_forgery with: :exception
   helper_method :current_user, :logged_in?
 
@@ -17,5 +18,14 @@ class ApplicationController < ActionController::Base
   def log_out
     session.delete(:user_id)
     @current_user = nil
+  end
+
+  private
+
+  def require_login
+    unless logged_in?
+      flash[:error] = 'You must be logged in to access this section'
+      redirect_to login_url
+    end
   end
 end

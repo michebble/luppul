@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_action :require_login, only: %i[new create]
+
   def new
     redirect_to user_path(current_user) if logged_in?
   end
@@ -18,6 +20,8 @@ class SessionsController < ApplicationController
     log_out
     redirect_to login_path
   end
+
+  private
 
   def session_params
     params.require(:session).permit(:email, :password)

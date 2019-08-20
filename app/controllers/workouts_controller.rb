@@ -5,11 +5,19 @@ class WorkoutsController < ApplicationController
   START_DATE = DateTime.current
 
   def show
-    @workout = Workout.find(params[:id])
+    @workout = Workout.find_by(id: params[:id], user_id: current_user.id)
+    if @workout.nil?
+      redirect_to user_path(current_user)
+      return
+    end
   end
 
   def create
-    workout = Workout.find(params[:id])
+    workout = Workout.find_by(id: params[:id], user_id: current_user.id)
+    if workout.nil?
+      redirect_to user_path(current_user)
+      return
+    end
     workout.update(completed_at: DateTime.current)
 
     schedule = workout.schedule
