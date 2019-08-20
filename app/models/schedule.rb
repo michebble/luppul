@@ -34,16 +34,14 @@ class Schedule < ApplicationRecord
     workouts.find_by(completed_at: nil)
   end
 
-  def completed_break_period?
-    return false if completed_at.blank?
-
-    days_since_completed > BREAK_DAYS_AFTER_COMPLETED
+  def completed_final_break_period?
+    completed_at.present? &&
+      (days_since_completed > BREAK_DAYS_AFTER_COMPLETED)
   end
 
-  def within_break_period?
-    return false if completed_at.blank?
-
-    days_since_completed <= BREAK_DAYS_AFTER_COMPLETED
+  def in_final_break_period?
+    completed_at.present? &&
+      (days_since_completed <= BREAK_DAYS_AFTER_COMPLETED)
   end
 
   private

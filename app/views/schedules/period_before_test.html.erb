@@ -1,0 +1,3 @@
+<p>Congratulations on completing level <%=@schedule.level + 1%></p>
+
+<p>The test for your next level is on <%=(@schedule.completed_at + 2.days).strftime("#{(@schedule.completed_at + 2.days).day.ordinalize} of %B")%></p>

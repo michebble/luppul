@@ -2,15 +2,8 @@
 
 # Actions for Schedules
 class SchedulesController < ApplicationController
-  def index
-    schedule = Schedule.where(user_id: current_user.id).order(created_at: :desc).first
-
-    if schedule.completed_at.nil?
-      redirect_to schedule_path(schedule) and return
-    elsif days_since_completed(schedule.completed_at) >= 2
-      redirect_to new_schedule_path and return
-    end
-    render 'please_wait'
+  def new
+    @schedule = Schedule.new
   end
 
   def create
@@ -21,6 +14,8 @@ class SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find(params[:id])
+
+    render :period_before_test if @schedule.in_final_break_period?
   end
 
   private

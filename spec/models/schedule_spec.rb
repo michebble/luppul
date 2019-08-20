@@ -47,19 +47,19 @@ RSpec.describe Schedule, type: :model do
     end
   end
 
-  describe '#completed_break_period?' do
+  describe '#completed_final_break_period?' do
     let(:schedule)     { create(:schedule, completed_at: completed_at) }
     let(:completed_at) { Time.current - 3.days }
 
     it 'returns true' do
-      expect(schedule.completed_break_period?).to eq true
+      expect(schedule.completed_final_break_period?).to eq true
     end
 
     context 'when the schedule is not completed' do
       let(:completed_at) { nil }
 
       it 'returns false' do
-        expect(schedule.completed_break_period?).to eq false
+        expect(schedule.completed_final_break_period?).to eq false
       end
     end
 
@@ -67,32 +67,32 @@ RSpec.describe Schedule, type: :model do
       let(:completed_at) { Time.current - 2.day }
 
       it 'returns false' do
-        expect(schedule.completed_break_period?).to eq false
+        expect(schedule.completed_final_break_period?).to eq false
       end
     end
   end
 
-  describe '#within_break_period?' do
+  describe '#in_final_break_period?' do
     let(:schedule)     { create(:schedule, completed_at: completed_at) }
     let(:completed_at) { Time.current - 1.days }
 
     it 'returns true' do
-      expect(schedule.within_break_period?).to eq true
+      expect(schedule.in_final_break_period?).to eq true
     end
 
     context 'when the schedule is not completed' do
       let(:completed_at) { nil }
 
       it 'returns false' do
-        expect(schedule.within_break_period?).to eq false
+        expect(schedule.in_final_break_period?).to eq false
       end
     end
 
-    context 'when the break period has passed' do
+    context 'when the break period has not passed' do
       let(:completed_at) { Time.current - 3.day }
 
       it 'returns false' do
-        expect(schedule.within_break_period?).to eq false
+        expect(schedule.in_final_break_period?).to eq false
       end
     end
   end
