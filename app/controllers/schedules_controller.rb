@@ -2,11 +2,8 @@
 
 # Actions for Schedules
 class SchedulesController < ApplicationController
-  def index
-    schedule = Schedule.where(user_id: current_user.id, completed_at: nil)
-                       .order(created_at: :desc).first
-
-    redirect_to schedule.nil? ? new_schedule_path : schedule_path(schedule)
+  def new
+    @schedule = Schedule.new
   end
 
   def create
@@ -17,5 +14,13 @@ class SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find(params[:id])
+
+    render :period_before_test if @schedule.in_final_break_period?
+  end
+
+  private
+
+  def days_since_completed(completed_at)
+    TimeDifference.between(completed_at, Time.current).in_days
   end
 end

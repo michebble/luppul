@@ -1,12 +1,13 @@
 class SessionsController < ApplicationController
   def new
+    redirect_to user_path(current_user) if logged_in?
   end
 
   def create
     result = CreateSession.call(session_params)
     if result.success?
       log_in result.user
-      redirect_to schedules_path
+      redirect_to user_path(result.user)
     else
       flash.now[:danger] = result.errors.first
       render 'new'
