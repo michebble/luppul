@@ -9,16 +9,23 @@ class UsersController < ApplicationController
   end
 
   def create
-    context = CreateUser.call(user_params)
-    # TODO handle what happens after cxreation or failure
+    result = CreateUser.call(user_params)
+    if result.success?
+      log_in result.user
+      redirect_to user_path(result.user)
+    else
+      flash.now[:danger] = result.errors.first
+      render 'new'
+    end
   end
 
   def show
     current_schedule = current_user.schedules.order(created_at: :desc).first
-    if current_schedule.nil? || current_schedule.completed_final_break_period?
+    if current_schedule.nil?
       redirect_to new_schedule_path
       return
     end
+
     redirect_to schedule_path(current_schedule)
   end
 

@@ -13,7 +13,11 @@ class SchedulesController < ApplicationController
   end
 
   def show
-    @schedule = Schedule.find(params[:id])
+    @schedule = Schedule.find_by(id: params[:id], user_id: current_user.id)
+    if @schedule.nil? || @schedule.completed_final_break_period?
+      redirect_to new_schedule_path
+      return
+    end
 
     render :period_before_test if @schedule.in_final_break_period?
   end
